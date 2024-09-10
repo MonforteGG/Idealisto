@@ -1,0 +1,17 @@
+# Python
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+
+# Archivos de configuración del entorno
+.env
+*.env
+
+# Entornos virtuales
+venv/
+.env/
+.venv/
+
+# Editor de código
+.idea/
