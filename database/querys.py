@@ -1,15 +1,15 @@
-from conection import session
-from model import Property
+from database.conection import session
+from database.model import Property
 
 
 def get_all_property_codes():
     # Realizar la consulta para obtener todos los property_code
     property_codes = session.query(Property.advertising_id).all()
 
-    # Convertir los resultados a una lista de valores
-    property_codes_list = [code[0] for code in property_codes]
+    # Convertir los resultados a un conjunto de valores únicos
+    property_codes_set = set(code[0] for code in property_codes)
 
-    return property_codes_list
+    return property_codes_set
 
 
 def add_properties_to_db(property_data):
@@ -43,9 +43,18 @@ def add_properties_to_db(property_data):
 def is_new_property(properties_json):
     # Obtener todos los property_codes existentes en la base de datos
     existing_property_codes = get_all_property_codes()
+    print("Eston son los codigos que ya tenemos en la base de datos:")
+    print(existing_property_codes)
 
     for property_data in properties_json['elementList']:
-        property_code = property_data.get('propertyCode')
+        property_code = int(property_data.get('propertyCode'))
 
+        # Solo agrega la propiedad si no está ya en la base de datos
         if property_code not in existing_property_codes:
-            add_properties_to_db(property_data)
+            try:
+                add_properties_to_db(property_data)
+                print(f"Propiedad con código {property_code} agregada correctamente.")
+            except Exception as e:
+                print(f"Error al agregar la propiedad con código {property_code}: {e}")
+        else:
+            print(f"La propiedad con código {property_code} ya existe en la base de datos")

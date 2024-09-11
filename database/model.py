@@ -15,7 +15,7 @@ class Property(Base):
     size = Column(Numeric(10, 2))
     price = Column(Numeric(10, 2))
     price_by_area = Column(DECIMAL(10, 2))
-    property_type = Column(String(50, nullable=True))
+    property_type = Column(String(50), nullable=True)
     status = Column(String(50), nullable=True)
     floor = Column(String(10), nullable=True)
     rooms = Column(Integer, nullable=True)
@@ -23,8 +23,8 @@ class Property(Base):
     province = Column(String(100), nullable=True)
     municipality = Column(String(100), nullable=True)
     address = Column(Text, nullable=True)
-    latitude = Column(DECIMAL, nullable=True)
-    longitude = Column(DECIMAL, nullable=True)
+    latitude = Column(DECIMAL(10, 8), nullable=True)
+    longitude = Column(DECIMAL(11, 8), nullable=True)
 
 
 
