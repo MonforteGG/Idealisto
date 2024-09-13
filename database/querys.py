@@ -1,5 +1,7 @@
+from sqlalchemy import func
 from database.conection import session
 from database.model import Property
+
 
 
 def get_all_property_codes():
@@ -10,6 +12,13 @@ def get_all_property_codes():
     property_codes_set = set(code[0] for code in property_codes)
 
     return property_codes_set
+
+
+def calculate_average_price_per_squared_meter():
+    average_price_by_area = session.query(func.avg(Property.price_by_area)).filter(
+        Property.price_by_area is not None).scalar()
+
+    return average_price_by_area
 
 
 def add_properties_to_db(property_data):
@@ -38,23 +47,3 @@ def add_properties_to_db(property_data):
     except Exception as e:
         session.rollback()
         print(f"Error al agregar la propiedad: {e}")
-
-
-def is_new_property(properties_json):
-    # Obtener todos los property_codes existentes en la base de datos
-    existing_property_codes = get_all_property_codes()
-    print("Eston son los codigos que ya tenemos en la base de datos:")
-    print(existing_property_codes)
-
-    for property_data in properties_json['elementList']:
-        property_code = int(property_data.get('propertyCode'))
-
-        # Solo agrega la propiedad si no está ya en la base de datos
-        if property_code not in existing_property_codes:
-            try:
-                add_properties_to_db(property_data)
-                print(f"Propiedad con código {property_code} agregada correctamente.")
-            except Exception as e:
-                print(f"Error al agregar la propiedad con código {property_code}: {e}")
-        else:
-            print(f"La propiedad con código {property_code} ya existe en la base de datos")

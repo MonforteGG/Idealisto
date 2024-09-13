@@ -7,8 +7,8 @@ max_items = '50'  # Max items per call, the maximum set by Idealista is 50
 operation = 'sale'  # Kind of operation (sale, rent)
 property_type = 'homes'  # Type of property (homes, offices, premises, garages, bedrooms)
 order = 'publicationDate'  # Order of the listings, consult documentation for all the available orders
-center = '37.406799,-5.969916'  # Coordinates of the search center
-distance = '500'  # Max distance from the center
+center = '37.404762,-5.973923'  # Coordinates of the search center
+distance = '900'  # Max distance from the center
 sort = 'desc'  # How to sort the found items
 maxprice = '190000'  # Max price of the listings
 
