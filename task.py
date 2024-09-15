@@ -1,4 +1,4 @@
-from database.querys import update_price, get_all_property_codes_and_prices, add_properties_to_db
+from database.queries import update_price, get_all_property_codes_and_prices, add_properties_to_db
 from search import search_api
 from parameters import url
 from utils import is_new_property, send_price_changed_message, price_changed, send_message_new_property

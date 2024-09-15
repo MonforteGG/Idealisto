@@ -1,5 +1,5 @@
 import os
-from database.querys import calculate_average_price_per_squared_meter, get_all_property_codes_and_prices
+from database.queries import calculate_average_price_per_squared_meter, get_all_property_codes_and_prices
 from bot import send_message_to_group
 
 
