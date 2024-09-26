@@ -1,19 +1,18 @@
-# Detailing the parameters
+# Detallando los parámetros
 
-base_url = 'https://api.idealista.com/3.5/'  # Base search url
-country = 'es'  # Search country (es, it, pt)
-language = 'es'  # Search language (es, it, pt, en, ca)
-max_items = '50'  # Max items per call, the maximum set by Idealista is 50
-operation = 'sale'  # Kind of operation (sale, rent)
-property_type = 'homes'  # Type of property (homes, offices, premises, garages, bedrooms)
-order = 'publicationDate'  # Order of the listings, consult documentation for all the available orders
-center = '37.404762,-5.973923'  # Coordinates of the search center
-distance = '900'  # Max distance from the center
-sort = 'desc'  # How to sort the found items
-maxprice = '190000'  # Max price of the listings
+base_url = 'https://api.idealista.com/3.5/'  # URL base de búsqueda
+country = 'es'  # País de búsqueda (es, it, pt)
+language = 'es'  # Idioma de búsqueda (es, it, pt, en, ca)
+max_items = '50'  # Máximo de elementos por solicitud, el máximo establecido por Idealista es 50
+operation = 'sale'  # Tipo de operación (sale, rent)
+property_type = 'homes'  # Tipo de propiedad (homes, offices, premises, garages, bedrooms)
+order = 'publicationDate'  # Orden de los listados, consultar documentación para ver todas las opciones disponibles
+center = '37.404762,-5.973923'  # Coordenadas del centro de la búsqueda
+distance = '900'  # Distancia máxima desde el centro
+sort = 'desc'  # Cómo ordenar los elementos encontrados
+maxprice = '190000'  # Precio máximo de los listados
 
-
-# Creating the URL with the parameters I want
+# Creando la URL con los parámetros que deseo
 
 def define_search_url():
     url = (base_url +

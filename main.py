@@ -1,12 +1,13 @@
 from dotenv import load_dotenv
+# Cargar variables de entorno
+load_dotenv()
 from threading import Event, Thread
 from database.model import Base
 from database.conection import engine
 from bot import bot
 from task import task
 
-# Cargar variables de entorno
-load_dotenv()
+
 
 # Crear todas las tablas si no están creadas
 Base.metadata.create_all(engine)

@@ -13,9 +13,9 @@ welcome_text = (
 )
 
 
-@bot.message_handler(commands=['start', 'hola'])
+@bot.message_handler(commands=['health', 'online'])
 def send_welcome(message):
-    bot.reply_to(message, welcome_text, parse_mode= "HTML")
+    bot.reply_to(message, "Estoy funcionando correctamente!", parse_mode= "HTML")
 
 
 def send_message_to_group(group_id, message_text):

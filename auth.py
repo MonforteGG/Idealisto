@@ -5,53 +5,42 @@ import requests
 import base64
 
 
-# Loading .env file
+# Cargando el archivo .env
 load_dotenv()
 
+apikey = os.getenv('IDEALISTA_API_KEY')
+client_secret = os.getenv('IDEALISTA_CLIENT_SECRET')
 
-# First we need the client secret and api key
-
-apikey =  os.getenv('IDEALISTA_API_KEY')
-client_secret =  os.getenv('IDEALISTA_CLIENT_SECRET')
-
-# above you replace for the Api Key and client code you received
-
-# Concatenating the credentials into one variable(string)
-
+# Concatenando las credenciales en una sola variable (string)
 credentials = f"{apikey}:{client_secret}"
 
-# After we need to encode the api key and client secret
+# Luego necesitamos codificar la API key y el client secret
 encoded_credentials = base64.b64encode(credentials.encode()).decode()
 
-# url which we will request the token
-
+# URL a la cual haremos la solicitud para obtener el token
 token_url = "https://api.idealista.com/oauth/token"
 
-# determine the data
-
+# Definir los datos
 data = {"grant_type": "client_credentials",
         "scope": "read"}
 
-# headers
-
+# Encabezados
 headers = {"Authorization": f"Basic {encoded_credentials}", "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"}
 
-# getting response
-
+# Obteniendo la respuesta
 response = requests.post(token_url, data=data, headers=headers)
 
-# checking status
-
+# Verificando el estado
 if response.status_code == 200:
-    # Parse the JSON response
+    # Parsear la respuesta JSON
     token_data = response.json()
 
     access_token = token_data["access_token"]
 
-    # Print access token and other details
+    # Imprimir el token de acceso y otros detalles
     print("Access Token:", token_data["access_token"])
-    print("Token Type:", token_data["token_type"])
-    print("Expires In (seconds):", token_data["expires_in"])
-    print("Scope:", token_data["scope"])
+    print("Tipo de Token:", token_data["token_type"])
+    print("Expira en (segundos):", token_data["expires_in"])
+    print("Alcance:", token_data["scope"])
 else:
     print("Error:", response.status_code, response.text)
