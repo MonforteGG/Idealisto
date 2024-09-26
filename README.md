@@ -11,7 +11,15 @@ This Python project automates the retrieval of housing listings from Idealista a
 - **Price per m² comparison** with the average price from previously stored listings.
 - **Price change notifications**: Alerts you when there are changes in the prices of existing listings.
 - **Formatted notifications** with the most important details of the listing.
-- **Daily automation**: The program runs 3 times a day at 09:00, 15:00, and 20:00. (This is because the Idealista API only allows 100 queries per month.)
+
+
+## 🔄 Work Flow
+
+1. **Retrieve data from Idealista API**: Call the Idealista API and store the obtained JSON.
+2. **Get existing property codes and prices**: Fetch all property codes and prices from the database.
+3. **Process each property**:
+   - If the property is new, send a notification for the new listing and add it to the database.
+   - If the property is not new, check if the price has changed. If it has, send a price change notification and update the price in the database.
 
 ## 🛠 Technologies Used
 
@@ -20,7 +28,8 @@ This Python project automates the retrieval of housing listings from Idealista a
 - **SQLAlchemy** for database interaction.
 - **Idealista API** for retrieving property listings.
 - **Telegram Bot API**: for sending notifications and updates.
-- **Task automation** using Python’s `schedule`.
+- **Task automation** using cron on Linux or Task Scheduler on Windows.
+
 
 ## 🗂 Project Structure
 ```
@@ -49,12 +58,29 @@ Idealista/
     cd idealisto
     ```
 
-2. Install the required dependencies:
+2. Create a virtual environment and activate it (Recommended):
+   ```bash
+   python -m venv venv
+   ```
+
+   On Windows:
+   ```bash
+   venv\Scripts\activate
+   ```
+
+   On Linux:
+   ```bash
+   source venv/bin/activate
+   ```
+
+
+
+3. Install the required dependencies:
     ```bash
     pip install -r requirements.txt
     ```
 
-3. Configure environment variables for your Idealista API connection and Azure database. Create a `.env` file in the root directory and add your credentials:
+4. Configure environment variables for your Idealista API connection and Azure database. Create a `.env` file in the root directory and add your credentials:
     ```env
     IDEALISTA_API_KEY=your_idealista_api_key
     IDEALISTA_CLIENT_SECRET=your_idealista_client_secret
@@ -66,7 +92,7 @@ Idealista/
     TELEGRAM_GROUP_ID=your_telegram_group_id
     ```
 
-4. Adapt parameters.py:
+5. Adapt parameters.py:
     ```python
     base_url = 'https://api.idealista.com/3.5/'  # Base search URL
     country = 'es'  # Search country (es, it, pt)
@@ -81,20 +107,44 @@ Idealista/
     maxprice = '190000'  # Max price of the listings
     ```
 
-5. Run the bot:
+6. Run the bot:
     ```bash
     python bot.py
     ```
 
 ## ⚙️ Automated Tasks
 
-The program executes a task 3 times a day (09:00, 15:00, 20:00) with the following flow:
+To execute the task 2 times a day (15:00, 20:00):
 
-1. **Retrieve data from Idealista API**: Call the Idealista API and store the obtained JSON.
-2. **Get existing property codes and prices**: Fetch all property codes and prices from the database.
-3. **Process each property**:
-   - If the property is new, send a notification for the new listing and add it to the database.
-   - If the property is not new, check if the price has changed. If it has, send a price change notification and update the price in the database.
+On Linux, set up cron:
+
+1. Open the crontab editor:
+   ```bash
+   crontab -e
+   ```
+
+2. Add the following lines:
+   ```bash
+   00 15 * * * . /home/your_username/Idealisto/venv/bin/activate && python3 /home/your_username/Idealisto/main.py >> /home/your_username/Idealisto/cron.log 2>&1
+   00 20 * * * . /home/your_username/Idealisto/venv/bin/activate && python3 /home/your_username/Idealisto/main.py >> /home/your_username/Idealisto/cron.log 2>&1
+   ```
+   > ❗ **Warning**: Replace `your_username` with your actual username on your system.
+   
+   > ⏰ **Reminder**: Check your system date and time and adjust the hours (15:00 and 20:00) to match your local time zone.
+
+
+   
+
+On Windows, use Task Scheduler:
+
+1. Open Task Scheduler.
+2. Create a new task that runs the following command:
+   ```bash
+   path\to\venv\Scripts\python.exe path\to\Idealisto\main.py
+   ```
+3. Set the trigger to run the task at the 15:00 and 20:00 every day.
+
+
 
 ## Contributing
 
