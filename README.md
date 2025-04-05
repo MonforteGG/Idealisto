@@ -80,7 +80,7 @@ Idealista/
     pip install -r requirements.txt
     ```
 
-4. Configure environment variables for your Idealista API connection and Azure database. Create a `.env` file in the root directory and add your credentials:
+4. Configure environment variables for your Idealista API connection and SQL database. Create a `.env` file in the root directory and add your credentials:
     ```env
     IDEALISTA_API_KEY=your_idealista_api_key
     IDEALISTA_CLIENT_SECRET=your_idealista_client_secret
