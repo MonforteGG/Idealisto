@@ -15,3 +15,7 @@ venv/
 
 # Editor de código
 .idea/
+
+
+# BD
+idealisto.db

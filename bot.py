@@ -1,3 +1,5 @@
+import time
+
 import telebot
 import os
 
@@ -18,8 +20,10 @@ def send_welcome(message):
     bot.reply_to(message, "Estoy funcionando correctamente!", parse_mode= "HTML")
 
 
+
 def send_message_to_group(group_id, message_text):
     try:
+        time.sleep(1)  # Espera de 1 segundo para evitar el 429
         bot.send_message(group_id, message_text, parse_mode="HTML")
         print(f"Mensaje enviado al grupo: {message_text}")
     except Exception as e:
