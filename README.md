@@ -1,6 +1,6 @@
 # 🏠 Idealisto Telegram Bot
 
-This Python project automates the retrieval of housing listings from Idealista and saves only new listings to a MySQL database. It compares the price per square meter to the average of previously stored listings and sends notifications to a Telegram group with the most relevant information, including new listings and price changes.
+This Python project automates the retrieval of housing listings from Idealista and saves only new listings to a local SQLite database (no server required). It compares the price per square meter to the average of previously stored listings and sends notifications to a Telegram group with the most relevant information, including new listings and price changes.
 
 ![Telegram_screenshots](https://i.imgur.com/y07o3yI.png)
 
@@ -24,7 +24,7 @@ This Python project automates the retrieval of housing listings from Idealista a
 ## 🛠 Technologies Used
 
 - **Python** for the backend and program logic.
-- **MySQL** for data storage.
+- **SQLite** for local data storage.
 - **SQLAlchemy** for database interaction.
 - **Idealista API** for retrieving property listings.
 - **Telegram Bot API**: for sending notifications and updates.
@@ -44,7 +44,7 @@ Idealista/
 ├── task.py            # Contains the recurring tasks scheduled for fetching listings.
 ├── utils.py           # Helper functions for data handling.
 ├── database/          # Database-related files.
-│   ├── conection.py   # Handles the connection to the Azure MySQL database.
+│   ├── conection.py   # Handles the connection to the SQLite database.
 │   ├── model.py       # SQLAlchemy database model definition.
 │   └── queries.py      # SQLAlchemy queries and database operations.
 └── README.md          # Project documentation.
@@ -84,10 +84,6 @@ Idealista/
     ```env
     IDEALISTA_API_KEY=your_idealista_api_key
     IDEALISTA_CLIENT_SECRET=your_idealista_client_secret
-    DB_HOST=your_database_host
-    DB_USER=your_database_user
-    DB_PASSWORD=your_database_password
-    DB_NAME=your_database_name
     TELEGRAM_TOKEN=your_telegram_bot_token
     TELEGRAM_GROUP_ID=your_telegram_group_id
     ```
