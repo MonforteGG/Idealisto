@@ -54,7 +54,7 @@ Idealista/
 
 1. Clone this repository:
     ```bash
-    git clone https://github.com/youruser/idealisto.git
+    git clone https://github.com/MonforteGG/idealisto.git
     cd idealisto
     ```
 
